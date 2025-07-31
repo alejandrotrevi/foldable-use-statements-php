@@ -1,65 +1,107 @@
-# foldable-use-statements README
+# Foldable Use Statements
 
-This is the README for your extension "foldable-use-statements". After writing up a brief description, we recommend including the following sections.
+A VS Code extension that adds code folding support for PHP `use` statements, helping you keep your imports organized and your code clean.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+This extension automatically detects groups of consecutive PHP `use` statements and makes them foldable in VS Code. This helps reduce visual clutter when working with files that have many imports.
 
-For example if there is an image subfolder under your extension project workspace:
+### What gets folded
 
-\!\[feature X\]\(images/feature-x.png\)
+The extension creates folding ranges for:
+- **Multiple consecutive use statements** (2 or more)
+- **Use statement groups separated only by comments or empty lines**
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### What doesn't get folded
+
+- **Single use statements** (no point in folding one line)
+- **Use statements separated by actual code**
+
+## Examples
+
+### Basic folding
+```php
+<?php
+
+use App\Models\User;          // ← This group will be foldable
+use App\Models\Post;          // ←
+use App\Models\Comment;       // ←
+use App\Services\Logger;      // ←
+
+class MyController {
+    // ...
+}
+```
+
+### Comments between use statements
+```php
+<?php
+
+use App\Models\User;          // ← This entire group will be foldable
+use App\Models\Post;          // ← including the commented line
+// use App\Models\Comment;    // ← (comments don't break the group)
+use App\Services\Logger;      // ←
+
+class MyController {
+    // ...
+}
+```
+
+### Multiple separate groups
+```php
+<?php
+
+use App\Models\User;          // ← First foldable group
+use App\Models\Post;          // ←
+
+class MyController {
+    public function index() {
+        use App\Services\Cache;   // ← Second foldable group
+        use App\Services\Logger;  // ← (even inside methods)
+        
+        // ...
+    }
+}
+```
+
+## How to use
+
+1. Install the extension
+2. Open any PHP file with multiple `use` statements
+3. Look for the folding arrows (▼) next to groups of use statements
+4. Click the arrow or use `Ctrl+Shift+[` / `Ctrl+Shift+]` to fold/unfold
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- VS Code 1.99.0 or higher
+- PHP files (`.php` extension)
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+This extension doesn't add any configurable settings. It works automatically for all PHP files.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+None currently known. If you find any issues, please report them on the GitHub repository.
+
+## Support This Extension
+
+If you find this extension useful, consider supporting its development:
+
+[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png)](https://www.buymeacoffee.com/alextf)
+
+Your support helps maintain and improve this extension!
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release featuring:
+- Automatic detection of PHP use statement groups
+- Smart folding that ignores comments and empty lines
+- Support for use statements with aliases (`use Foo as Bar`)
+- Robust parsing that avoids false positives
 
 ---
 
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+**Enjoy cleaner PHP code with foldable use statements!**
