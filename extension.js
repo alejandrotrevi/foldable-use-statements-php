@@ -30,7 +30,7 @@ function createUseStatementFoldingRanges(document) {
 			lastUseLine = i;
 		} else if (!isComment(trimmedText, inMultiLineComment) && groupStart !== null) {
 			if (lastUseLine > groupStart) {
-				ranges.push(new vscode.FoldingRange(groupStart, lastUseLine));
+				ranges.push(new vscode.FoldingRange(groupStart, lastUseLine, vscode.FoldingRangeKind.Imports));
 			}
 			groupStart = null;
 			lastUseLine = null;
@@ -38,7 +38,7 @@ function createUseStatementFoldingRanges(document) {
 	}
 
 	if (groupStart !== null && lastUseLine > groupStart) {
-		ranges.push(new vscode.FoldingRange(groupStart, lastUseLine));
+		ranges.push(new vscode.FoldingRange(groupStart, lastUseLine, vscode.FoldingRangeKind.Imports));
 	}
 
 	return ranges;

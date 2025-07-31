@@ -71,6 +71,18 @@ class MyController {
 3. Look for the folding arrows (▼) next to groups of use statements
 4. Click the arrow or use `Ctrl+Shift+[` / `Ctrl+Shift+]` to fold/unfold
 
+### Auto-collapse imports by default
+
+To automatically collapse all import statements when opening PHP files, add this setting to your VS Code settings:
+
+```json
+{
+    "editor.foldingImportsByDefault": true
+}
+```
+
+This will ensure that all foldable use statement groups are collapsed by default, keeping your files clean and focused.
+
 ## Requirements
 
 - VS Code 1.99.0 or higher
