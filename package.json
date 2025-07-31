@@ -1,8 +1,10 @@
 {
   "name": "foldable-use-statements",
-  "displayName": "foldable-use-statements",
+  "displayName": "Foldable use statements",
   "description": "Simple extension to add the option to fold use statements in PHP classes",
-  "version": "0.0.1",
+  "version": "0.0.3",
+  "publisher": "alex-tf",
+  "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.99.0"
   },
